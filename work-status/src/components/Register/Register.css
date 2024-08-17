@@ -1,0 +1,124 @@
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  max-width: 800px;
+  margin: 7% auto;
+}
+
+.register-form {
+  width: 50%;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background-color: #fff;
+  padding: 0.4rem; /* Padding'i küçülttük */
+}
+
+.input-group i {
+  color: #3a6073;
+  margin-right: 0.5rem;
+  font-size: 1.2rem; /* İkon boyutunu ayarladık */
+}
+
+.input-group input {
+  width: 100%;
+  border: none;
+  padding: 0.6rem 0.5rem; /* Padding'i küçülttük */
+  font-size: 0.9rem; /* Yazı boyutunu biraz küçülttük */
+  outline: none;
+  background-color: transparent;
+}
+
+.input-group input::placeholder {
+  color: #999;
+}
+
+.input-group:focus-within {
+  border-color: #3a6073;
+}
+
+.terms-service {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.terms-service label {
+  margin-left: 0.5rem;
+  color: #333;
+}
+
+.terms-service a {
+  color: #3a6073;
+  text-decoration: none;
+}
+
+.terms-service a:hover {
+  text-decoration: underline;
+}
+
+button {
+  width: 100%;
+  padding: 0.7rem; /* Padding'i küçülttük */
+  border: none;
+  border-radius: 4px;
+  background: #3a6073;
+  color: #fff;
+  font-size: 0.9rem; /* Buton yazı boyutunu küçülttük */
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-top: 5%;
+}
+
+button:hover {
+  background: #2d4b61;
+}
+
+.already-member {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.already-member a {
+  color: #3a6073;
+  text-decoration: none;
+}
+
+.already-member a:hover {
+  text-decoration: underline;
+}
+
+.register-image {
+  display: block;
+  margin-left: 15%;
+  margin-right: auto;
+  margin-bottom: 20%;
+  margin-top: auto;
+}
+
+@media screen and (max-width: 880px) {
+  .register-image {
+    display: none;
+  }
+
+  .register-container {
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20%;
+    margin-bottom: auto;
+  }
+
+  .register-form {
+    width: 60%;
+  }
+}
