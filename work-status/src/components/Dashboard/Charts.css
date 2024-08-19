@@ -1,0 +1,14 @@
+.charts {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.chart {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  flex: 1;
+  min-width: 300px;
+}

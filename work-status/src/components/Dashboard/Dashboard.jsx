@@ -1,25 +1,27 @@
 import React from "react";
-import { Grid, Paper, Typography, Box } from "@mui/material";
-import { styled } from "@mui/system";
-import "./dashboard.css";
+import Header from "./Header";
+import Sidebar from "./Sidebar";
+import TaskCards from "./TaskCards";
+import Charts from "./Charts";
+import RecentActivities from "./RecentActivities";
+import "./Dashboard.css";
 
-const Item = styled(Paper)(({ theme }) => ({
-  padding: theme.spacing(2),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
-
-const Dashboard = () => {
+function Dashboard() {
   return (
-    <Box className="dashboard-container">
-      <Typography variant="h4" component="h1" gutterBottom>
-        Dashboard
-      </Typography>
-      <Grid container spacing={3}>
-        {/* Dashboard içeriği */}
-      </Grid>
-    </Box>
+    <div className="dashboard-container">
+      <Header />
+      <Sidebar />
+      <div className="main-content-container">
+        <div className="main-content">
+          <div className="dashboard-sections">
+            <TaskCards />
+            <Charts />
+            <RecentActivities />
+          </div>
+        </div>
+      </div>
+    </div>
   );
-};
+}
 
 export default Dashboard;

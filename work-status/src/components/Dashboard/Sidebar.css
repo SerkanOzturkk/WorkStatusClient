@@ -1,0 +1,44 @@
+.sidebar {
+  background-color: #3a6073; /* Yan menünün arka plan rengi */
+  color: #fff; /* Yazı rengi */
+  width: 200px; /* Yan menünün yeni genişliği */
+  padding: 2rem;
+  height: calc(100vh - 60px); /* Ekran yüksekliği - header yüksekliği */
+  position: fixed; /* Sabit konumda */
+  top: 60px; /* Header'ın hemen altında başlar */
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1); /* Hafif gölge efekti */
+}
+
+.sidebar-title {
+  margin: 0;
+  font-size: 1.5rem;
+  border-bottom: 1px solid #fff; /* Başlık altına çizgi ekler */
+  padding-bottom: 1rem;
+}
+
+.menu-list {
+  list-style: none; /* Liste noktalarını kaldırır */
+  padding: 0;
+  margin: 0;
+}
+
+.menu-item {
+  margin: 1rem 0; /* Menü öğeleri arasında boşluk bırakır */
+}
+
+.menu-item a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.2rem;
+  display: block;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.menu-item a:hover {
+  background-color: #2d4b61; /* Üzerine gelindiğinde arka plan rengi değişir */
+}

@@ -1,15 +1,39 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate(); // useNavigate hook'unu kullan
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Burada login işlemini gerçekleştirin
-    console.log("Email:", email);
-    console.log("Password:", password);
+
+    try {
+      const response = await axios.post(
+        "https://localhost:7112/api/auth/login",
+        {
+          email,
+          password,
+        }
+      );
+
+      // Başarılı giriş durumunda token'ı al
+      const token = response.data.token;
+
+      // Token'ı localStorage'a kaydet
+      localStorage.setItem("authToken", token);
+
+      // Kullanıcıyı dashboard sayfasına yönlendir
+      navigate("/dashboard");
+      console.log("BAŞARILIIIIIII");
+    } catch (err) {
+      setError("Giriş başarısız. Lütfen bilgilerinizi kontrol edin.");
+    }
   };
 
   return (
@@ -17,7 +41,7 @@ function Login() {
       <div className="info-section">
         <h2>New Here?</h2>
         <p>Sign up and discover a great amount of new opportunities!</p>
-        <a href="/signup" className="create-account-link">
+        <a href="/register" className="create-account-link">
           Create an Account
         </a>
       </div>
@@ -45,6 +69,7 @@ function Login() {
                 required
               />
             </div>
+            {error && <p style={{ color: "red" }}>{error}</p>}
             <button type="submit">Login</button>
           </form>
         </div>
