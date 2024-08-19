@@ -1,25 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Header.css"; // CSS dosyanız
+import { getUserNameFromToken } from "./Auth";
+import "./Header.css";
 
-function Header() {
+function Header({ onWorkStatusClick }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const navigate = useNavigate(); // useNavigate hook'u yönlendirme için
+  const [userName, setUserName] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    const name = getUserNameFromToken(token);
+    setUserName(name);
+  }, []);
 
   const handleLogout = () => {
-    // Burada gerekli çıkış işlemlerini yapın (örn. oturum kapatma işlemleri)
-    navigate("/login"); // Kullanıcıyı login sayfasına yönlendirir
+    localStorage.removeItem("authToken");
+    navigate("/login");
   };
 
   return (
     <div className="header">
-      <div className="header-title">Work Status</div>
+      <div className="header-title" onClick={onWorkStatusClick}>
+        Work Status
+      </div>
       <div className="user-menu">
         <button
           className="user-menu-button"
           onClick={() => setDropdownOpen(!dropdownOpen)}
         >
-          Username <i className="fa fa-caret-down"></i>
+          {userName || "Username"} <i className="fa fa-caret-down"></i>
         </button>
         {dropdownOpen && (
           <div className="dropdown-menu">

@@ -1,0 +1,29 @@
+.projects-list {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.projects-list h2 {
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.projects-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.projects-list li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.projects-list li:last-child {
+  border-bottom: none;
+}
+
+.projects-list li:hover {
+  background-color: #f0f0f0;
+}

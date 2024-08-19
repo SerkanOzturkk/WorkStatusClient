@@ -1,0 +1,21 @@
+.tasks-list {
+  padding: 20px;
+}
+
+.task-item {
+  background-color: #f7f7f7;
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.task-item h3 {
+  margin: 0 0 10px;
+}
+
+.no-tasks {
+  padding: 20px;
+  text-align: center;
+  color: #888;
+}

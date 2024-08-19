@@ -1,0 +1,69 @@
+.teams-list {
+  padding: 20px;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.team-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  background-color: #fff;
+}
+
+.team-item span {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.icon-buttons {
+  display: flex;
+  gap: 10px; /* İkonlar arasındaki boşluk */
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem; /* İkon boyutu */
+  color: #007bff;
+}
+
+.icon-button:hover {
+  color: #0056b3;
+}
+
+.icon-button:focus {
+  outline: none;
+}
+
+.icon-button i {
+  font-size: 1.2rem; /* İkon boyutunu ayarlayın */
+}
+
+.no-teams {
+  text-align: center;
+  padding: 20px;
+  color: #999;
+}
