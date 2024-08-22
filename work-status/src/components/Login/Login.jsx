@@ -30,7 +30,7 @@ function Login() {
 
       // Kullanıcıyı dashboard sayfasına yönlendir
       navigate("/dashboard");
-      console.log("BAŞARILIIIIIII");
+      console.log("Success login");
     } catch (err) {
       setError("Giriş başarısız. Lütfen bilgilerinizi kontrol edin.");
     }

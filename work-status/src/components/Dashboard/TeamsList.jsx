@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./TeamsList.css";
 
-function TeamsList() {
+function TeamList() {
   const [teams, setTeams] = useState([]);
   const [editingTeam, setEditingTeam] = useState(null);
   const [addingTeam, setAddingTeam] = useState(false);
@@ -48,11 +48,11 @@ function TeamsList() {
   const handleUpdate = async () => {
     try {
       await axios.put("https://localhost:7112/api/Team/update", updatedTeam);
-      fetchTeams(); // Listeleri güncelle
+      fetchTeams();
       setEditingTeam(null);
       alert("Team updated successfully!");
     } catch (error) {
-      console.error("Team güncellenirken bir hata oluştu:", error);
+      console.error("Takım güncellenirken bir hata oluştu:", error);
     }
   };
 
@@ -65,7 +65,7 @@ function TeamsList() {
         await axios.delete(
           `https://localhost:7112/api/Team/delete?teamId=${teamId}`
         );
-        fetchTeams(); // Listeleri güncelle
+        fetchTeams();
         alert("Team başarıyla silindi!");
       } catch (error) {
         console.error("Takım silinirken bir hata oluştu:", error);
@@ -88,81 +88,94 @@ function TeamsList() {
   const handleAdd = async () => {
     try {
       await axios.post("https://localhost:7112/api/Team/add", newTeam);
-      fetchTeams(); // Listeleri güncelle
+      fetchTeams();
       setAddingTeam(false);
       setNewTeam({ teamName: "" });
       alert("Team added successfully!");
     } catch (error) {
-      console.error("Team eklenirken bir hata oluştu:", error);
+      console.error("Takım eklenirken bir hata oluştu:", error);
     }
   };
 
   return (
-    <div className="teams-list">
+    <div className="team-list">
       <h2>Teams</h2>
       <button className="add-button" onClick={handleAddToggle}>
         {addingTeam ? "Cancel" : "Add New Team"}
       </button>
       {addingTeam && (
-        <div className="add-form">
-          <h3>Add New Team</h3>
-          <input
-            type="text"
-            name="teamName"
-            value={newTeam.teamName}
-            onChange={handleAddChange}
-            placeholder="Team Name"
-          />
-          <button className="save-button" onClick={handleAdd}>
-            Add
-          </button>
-        </div>
-      )}
-      <ul>
-        {teams.map((team) => (
-          <li key={team.id} className="team-item">
-            <div className="team-details">
-              <div>
-                <strong>Team Name:</strong> {team.teamName}
-              </div>
-            </div>
-            <div className="icon-buttons">
-              <button className="icon-button" onClick={() => handleEdit(team)}>
-                <i className="fa fa-edit"></i>
+        <div className="add-form-container">
+          <div className="add-form">
+            <h3>Add New Team</h3>
+            <input
+              type="text"
+              name="teamName"
+              value={newTeam.teamName}
+              onChange={handleAddChange}
+              placeholder="Team Name"
+            />
+            <div className="form-actions">
+              <button className="save-button" onClick={handleAdd}>
+                Add
               </button>
               <button
-                className="icon-button"
-                onClick={() => handleDelete(team.id)}
+                className="cancel-button"
+                onClick={() => setAddingTeam(false)}
               >
-                <i className="fa fa-trash"></i>
+                Cancel
               </button>
             </div>
-            {editingTeam === team.id && (
-              <div className="update-form">
-                <h3>Update Team</h3>
-                <input
-                  type="text"
-                  name="teamName"
-                  value={updatedTeam.teamName}
-                  onChange={handleUpdateChange}
-                  placeholder="Team Name"
-                />
-                <button className="save-button" onClick={handleUpdate}>
-                  Save
+          </div>
+        </div>
+      )}
+      <div className="cards-container">
+        {teams.map((team) => (
+          <div key={team.id} className="card">
+            <div className="card-header">
+              <div className="card-title">{team.teamName}</div>
+              <div className="icon-buttons">
+                <button
+                  className="icon-button"
+                  onClick={() => handleEdit(team)}
+                >
+                  <i className="fa fa-edit"></i>
                 </button>
                 <button
-                  className="cancel-button"
-                  onClick={() => setEditingTeam(null)}
+                  className="icon-button"
+                  onClick={() => handleDelete(team.id)}
                 >
-                  Cancel
+                  <i className="fa fa-trash"></i>
                 </button>
               </div>
-            )}
-          </li>
+            </div>
+            <div className="card-content">
+              {editingTeam === team.id && (
+                <div className="update-form">
+                  <h3>Update Team</h3>
+                  <input
+                    type="text"
+                    name="teamName"
+                    value={updatedTeam.teamName}
+                    onChange={handleUpdateChange}
+                    placeholder="Team Name"
+                  />
+                  <button className="save-button" onClick={handleUpdate}>
+                    Save
+                  </button>
+                  <button
+                    className="cancel-button"
+                    onClick={() => setEditingTeam(null)}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
 
-export default TeamsList;
+export default TeamList;

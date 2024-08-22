@@ -19,7 +19,7 @@ function ProjectsList() {
 
   useEffect(() => {
     fetchProjects();
-    fetchTeams(); // Takımların alınması
+    fetchTeams();
   }, []);
 
   const fetchProjects = async () => {
@@ -27,7 +27,7 @@ function ProjectsList() {
       const response = await axios.get(
         "https://localhost:7112/api/Project/getprojectdetails"
       );
-      setProjects(response.data.data); // `teamName` bilgisi de burada gelmelidir
+      setProjects(response.data.data);
     } catch (error) {
       console.error("Projeler alınırken bir hata oluştu:", error);
     }
@@ -67,7 +67,7 @@ function ProjectsList() {
         "https://localhost:7112/api/Project/update",
         updatedProject
       );
-      fetchProjects(); // Listeleri güncelle
+      fetchProjects();
       setEditingProject(null);
       alert("Proje başarıyla güncellendi!");
     } catch (error) {
@@ -84,7 +84,7 @@ function ProjectsList() {
         await axios.delete(
           `https://localhost:7112/api/Project/delete?projectId=${projectId}`
         );
-        fetchProjects(); // Listeleri güncelle
+        fetchProjects();
         alert("Proje başarıyla silindi!");
       } catch (error) {
         console.error("Proje silinirken bir hata oluştu:", error);
@@ -107,7 +107,7 @@ function ProjectsList() {
   const handleAdd = async () => {
     try {
       await axios.post("https://localhost:7112/api/Project/add", newProject);
-      fetchProjects(); // Listeleri güncelle
+      fetchProjects();
       setAddingProject(false);
       setNewProject({ projectName: "", teamId: "" });
       alert("Proje başarıyla eklendi!");
@@ -123,30 +123,35 @@ function ProjectsList() {
         {addingProject ? "Cancel" : "Add New Project"}
       </button>
       {addingProject && (
-        <div className="add-form">
-          <h3>Add New Project</h3>
-          <input
-            type="text"
-            name="projectName"
-            value={newProject.projectName}
-            onChange={handleAddChange}
-            placeholder="Project Name"
-          />
-          <select
-            name="teamId"
-            value={newProject.teamId}
-            onChange={handleAddChange}
-          >
-            <option value="">Select Team</option>
-            {teams.map((team) => (
-              <option key={team.id} value={team.id}>
-                {team.teamName}
-              </option>
-            ))}
-          </select>
-          <button className="save-button" onClick={handleAdd}>
-            Add
-          </button>
+        <div className="add-form-wrapper">
+          <div className="add-form">
+            <h3>Add New Project</h3>
+            <input
+              type="text"
+              name="projectName"
+              value={newProject.projectName}
+              onChange={handleAddChange}
+              placeholder="Project Name"
+            />
+            <select
+              name="teamId"
+              value={newProject.teamId}
+              onChange={handleAddChange}
+            >
+              <option value="">Select Team</option>
+              {teams.map((team) => (
+                <option key={team.id} value={team.id}>
+                  {team.teamName}
+                </option>
+              ))}
+            </select>
+            <button className="save-button" onClick={handleAdd}>
+              Add
+            </button>
+            <button className="cancel-button" onClick={handleAddToggle}>
+              Cancel
+            </button>
+          </div>
         </div>
       )}
       <ul>

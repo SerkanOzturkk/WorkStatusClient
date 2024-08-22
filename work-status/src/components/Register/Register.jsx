@@ -45,7 +45,7 @@ function Register() {
       // Kullanıcıyı giriş sayfasına yönlendir
       setTimeout(() => {
         navigate("/login");
-      }, 1000); // 1 saniye sonra yönlendir
+      }); // 1 saniye sonra yönlendir (iptal)
     } catch (err) {
       setError("Kayıt başarısız. Lütfen bilgilerinizi kontrol edin.");
       setSuccess(""); // Başarı mesajını temizle
