@@ -62,12 +62,18 @@ function ProjectsList() {
   };
 
   const handleUpdate = async () => {
+    //Validation
+    if (!updatedProject.projectName || !updatedProject.teamId) {
+      alert("Please fill in all the required fields.");
+      return;
+    }
+
     try {
       await axios.put(
         "https://localhost:7112/api/Project/update",
         updatedProject
       );
-      fetchProjects();
+      fetchProjects(); // Refresh the project list
       setEditingProject(null);
       alert("Proje başarıyla güncellendi!");
     } catch (error) {
@@ -84,7 +90,7 @@ function ProjectsList() {
         await axios.delete(
           `https://localhost:7112/api/Project/delete?projectId=${projectId}`
         );
-        fetchProjects();
+        fetchProjects(); // Refresh the project list
         alert("Proje başarıyla silindi!");
       } catch (error) {
         console.error("Proje silinirken bir hata oluştu:", error);
@@ -105,11 +111,20 @@ function ProjectsList() {
   };
 
   const handleAdd = async () => {
+    //Validation
+    if (!newProject.projectName || !newProject.teamId) {
+      alert("Please fill in all the required fields.");
+      return;
+    }
+
     try {
-      await axios.post("https://localhost:7112/api/Project/add", newProject);
-      fetchProjects();
-      setAddingProject(false);
+      const response = await axios.post(
+        "https://localhost:7112/api/Project/add",
+        newProject
+      );
       setNewProject({ projectName: "", teamId: "" });
+      setAddingProject(false);
+      fetchProjects(); // Refresh the project list to include the new project
       alert("Proje başarıyla eklendi!");
     } catch (error) {
       console.error("Proje eklenirken bir hata oluştu:", error);
@@ -145,76 +160,82 @@ function ProjectsList() {
                 </option>
               ))}
             </select>
-            <button className="save-button" onClick={handleAdd}>
-              Add
-            </button>
-            <button className="cancel-button" onClick={handleAddToggle}>
-              Cancel
-            </button>
+            <div className="form-actions">
+              <button className="save-button" onClick={handleAdd}>
+                Add
+              </button>
+              <button className="cancel-button" onClick={handleAddToggle}>
+                Cancel
+              </button>
+            </div>
           </div>
         </div>
       )}
-      <ul>
+      <div className="cards-container">
         {projects.map((project) => (
-          <li key={project.id} className="project-item">
-            <div className="project-details">
-              <div>
-                <strong>Project Name:</strong> {project.projectName}
+          <div key={project.id} className="card">
+            <div className="card-header">
+              <div className="card-title">{project.projectName}</div>
+              <div className="icon-buttons">
+                <button
+                  className="icon-button"
+                  onClick={() => handleEdit(project)}
+                >
+                  <i className="fa fa-edit"></i>
+                </button>
+                <button
+                  className="icon-button"
+                  onClick={() => handleDelete(project.id)}
+                >
+                  <i className="fa fa-trash"></i>
+                </button>
               </div>
+            </div>
+            <div className="card-content">
               <div>
                 <strong>Team:</strong> {project.teamName || "N/A"}
               </div>
             </div>
-            <div className="icon-buttons">
-              <button
-                className="icon-button"
-                onClick={() => handleEdit(project)}
-              >
-                <i className="fa fa-edit"></i>
-              </button>
-              <button
-                className="icon-button"
-                onClick={() => handleDelete(project.id)}
-              >
-                <i className="fa fa-trash"></i>
-              </button>
-            </div>
             {editingProject === project.id && (
-              <div className="update-form">
-                <h3>Update Project</h3>
-                <input
-                  type="text"
-                  name="projectName"
-                  value={updatedProject.projectName}
-                  onChange={handleUpdateChange}
-                  placeholder="Project Name"
-                />
-                <select
-                  name="teamId"
-                  value={updatedProject.teamId}
-                  onChange={handleUpdateChange}
-                >
-                  <option value="">Select Team</option>
-                  {teams.map((team) => (
-                    <option key={team.id} value={team.id}>
-                      {team.teamName}
-                    </option>
-                  ))}
-                </select>
-                <button className="save-button" onClick={handleUpdate}>
-                  Save
-                </button>
-                <button
-                  className="cancel-button"
-                  onClick={() => setEditingProject(null)}
-                >
-                  Cancel
-                </button>
+              <div className="update-form-wrapper">
+                <div className="update-form">
+                  <h3>Update Project</h3>
+                  <input
+                    type="text"
+                    name="projectName"
+                    value={updatedProject.projectName}
+                    onChange={handleUpdateChange}
+                    placeholder="Project Name"
+                  />
+                  <select
+                    name="teamId"
+                    value={updatedProject.teamId}
+                    onChange={handleUpdateChange}
+                  >
+                    <option value="">Select Team</option>
+                    {teams.map((team) => (
+                      <option key={team.id} value={team.id}>
+                        {team.teamName}
+                      </option>
+                    ))}
+                  </select>
+                  <div className="form-actions">
+                    <button className="save-button" onClick={handleUpdate}>
+                      Save
+                    </button>
+                    <button
+                      className="cancel-button"
+                      onClick={() => setEditingProject(null)}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
               </div>
             )}
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

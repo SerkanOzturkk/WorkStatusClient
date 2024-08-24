@@ -54,13 +54,28 @@ function EmployeesList() {
 
   const handleUpdateChange = (event) => {
     const { name, value } = event.target;
+
+    // Handle boolean status change
+    const updatedValue = name === "status" ? JSON.parse(value) : value;
+
     setUpdatedEmployee((prevState) => ({
       ...prevState,
-      [name]: value,
+      [name]: updatedValue,
     }));
   };
 
   const handleUpdate = async () => {
+    //Validation
+    if (
+      !updatedEmployee.employeeName ||
+      !updatedEmployee.email ||
+      !updatedEmployee.status ||
+      !updatedEmployee.teamName
+    ) {
+      alert("Please fill in all the required fields.");
+      return;
+    }
+
     const team = teams.find(
       (team) => team.teamName === updatedEmployee.teamName
     );
@@ -107,13 +122,27 @@ function EmployeesList() {
   return (
     <div className="employees-list">
       <h2>Employees</h2>
-      <ul>
+      <div className="cards-container">
         {employees.map((employee) => (
-          <li key={employee.id} className="employee-item">
-            <div className="employee-details">
-              <div>
-                <strong>Name:</strong> {employee.employeeName}
+          <div key={employee.id} className="card">
+            <div className="card-header">
+              <div className="card-title">{employee.employeeName}</div>
+              <div className="icon-buttons">
+                <button
+                  className="icon-button"
+                  onClick={() => handleEdit(employee)}
+                >
+                  <i className="fa fa-edit"></i>
+                </button>
+                <button
+                  className="icon-button"
+                  onClick={() => handleDelete(employee.id)}
+                >
+                  <i className="fa fa-trash"></i>
+                </button>
               </div>
+            </div>
+            <div className="card-content">
               <div>
                 <strong>Email:</strong> {employee.email}
               </div>
@@ -124,71 +153,61 @@ function EmployeesList() {
               <div>
                 <strong>Team:</strong> {employee.teamName}
               </div>
+              {editingEmployee === employee.id && (
+                <div className="update-form-wrapper">
+                  <div className="update-form">
+                    <h3>Update Employee</h3>
+                    <input
+                      type="text"
+                      name="employeeName"
+                      value={updatedEmployee.employeeName}
+                      onChange={handleUpdateChange}
+                      placeholder="Employee Name"
+                    />
+                    <input
+                      type="email"
+                      name="email"
+                      value={updatedEmployee.email}
+                      onChange={handleUpdateChange}
+                      placeholder="Email"
+                    />
+                    <select
+                      name="status"
+                      value={updatedEmployee.status}
+                      onChange={handleUpdateChange}
+                    >
+                      <option value={true}>Active</option>
+                      <option value={false}>Inactive</option>
+                    </select>
+                    <select
+                      name="teamName"
+                      value={updatedEmployee.teamName}
+                      onChange={handleUpdateChange}
+                    >
+                      {teams.map((team) => (
+                        <option key={team.id} value={team.teamName}>
+                          {team.teamName}
+                        </option>
+                      ))}
+                    </select>
+                    <div className="form-actions">
+                      <button className="save-button" onClick={handleUpdate}>
+                        Save
+                      </button>
+                      <button
+                        className="cancel-button"
+                        onClick={() => setEditingEmployee(null)}
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
-            <div className="icon-buttons">
-              <button
-                className="icon-button"
-                onClick={() => handleEdit(employee)}
-              >
-                <i className="fa fa-edit"></i>
-              </button>
-              <button
-                className="icon-button"
-                onClick={() => handleDelete(employee.id)}
-              >
-                <i className="fa fa-trash"></i>
-              </button>
-            </div>
-            {editingEmployee === employee.id && (
-              <div className="update-form">
-                <h3>Update Employee</h3>
-                <input
-                  type="text"
-                  name="employeeName"
-                  value={updatedEmployee.employeeName}
-                  onChange={handleUpdateChange}
-                  placeholder="Employee Name"
-                />
-                <input
-                  type="email"
-                  name="email"
-                  value={updatedEmployee.email}
-                  onChange={handleUpdateChange}
-                  placeholder="Email"
-                />
-                <select
-                  name="status"
-                  value={updatedEmployee.status}
-                  onChange={handleUpdateChange}
-                >
-                  <option value={true}>Active</option>
-                  <option value={false}>Inactive</option>
-                </select>
-                <select
-                  name="teamName"
-                  value={updatedEmployee.teamName}
-                  onChange={handleUpdateChange}
-                >
-                  {teams.map((team) => (
-                    <option key={team.id} value={team.teamName}>
-                      {team.teamName}
-                    </option>
-                  ))}
-                </select>
-                <button className="save-button" onClick={handleUpdate}>
-                  Save
-                </button>
-                <button
-                  className="cancel-button"
-                  onClick={() => setEditingEmployee(null)}
-                >
-                  Cancel
-                </button>
-              </div>
-            )}
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

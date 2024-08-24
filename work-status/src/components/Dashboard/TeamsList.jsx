@@ -46,11 +46,17 @@ function TeamList() {
   };
 
   const handleUpdate = async () => {
+    //Validation
+    if (!updatedTeam.teamName) {
+      alert("Please fill in all the required fields.");
+      return;
+    }
+
     try {
       await axios.put("https://localhost:7112/api/Team/update", updatedTeam);
       fetchTeams();
       setEditingTeam(null);
-      alert("Team updated successfully!");
+      alert("Team başarıyla güncellendi!");
     } catch (error) {
       console.error("Takım güncellenirken bir hata oluştu:", error);
     }
@@ -86,12 +92,18 @@ function TeamList() {
   };
 
   const handleAdd = async () => {
+    //Validation
+    if (!newTeam.teamName) {
+      alert("Please fill in all the required fields.");
+      return;
+    }
+
     try {
       await axios.post("https://localhost:7112/api/Team/add", newTeam);
       fetchTeams();
       setAddingTeam(false);
       setNewTeam({ teamName: "" });
-      alert("Team added successfully!");
+      alert("Team başarıyla eklendi!");
     } catch (error) {
       console.error("Takım eklenirken bir hata oluştu:", error);
     }
@@ -104,7 +116,7 @@ function TeamList() {
         {addingTeam ? "Cancel" : "Add New Team"}
       </button>
       {addingTeam && (
-        <div className="add-form-container">
+        <div className="add-form-wrapper">
           <div className="add-form">
             <h3>Add New Team</h3>
             <input
@@ -150,24 +162,28 @@ function TeamList() {
             </div>
             <div className="card-content">
               {editingTeam === team.id && (
-                <div className="update-form">
-                  <h3>Update Team</h3>
-                  <input
-                    type="text"
-                    name="teamName"
-                    value={updatedTeam.teamName}
-                    onChange={handleUpdateChange}
-                    placeholder="Team Name"
-                  />
-                  <button className="save-button" onClick={handleUpdate}>
-                    Save
-                  </button>
-                  <button
-                    className="cancel-button"
-                    onClick={() => setEditingTeam(null)}
-                  >
-                    Cancel
-                  </button>
+                <div className="update-form-wrapper">
+                  <div className="update-form">
+                    <h3>Update Team</h3>
+                    <input
+                      type="text"
+                      name="teamName"
+                      value={updatedTeam.teamName}
+                      onChange={handleUpdateChange}
+                      placeholder="Team Name"
+                    />
+                    <div className="form-actions">
+                      <button className="save-button" onClick={handleUpdate}>
+                        Save
+                      </button>
+                      <button
+                        className="cancel-button"
+                        onClick={() => setEditingTeam(null)}
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
