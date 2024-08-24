@@ -1,0 +1,91 @@
+/* Varsayılan stilleri korurken özel stiller ekleyin */
+.react-calendar {
+  width: 100%;
+  max-width: 300px; /* Takvimi istediğiniz genişlikte sınırlayın */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Haftanın günlerini göstermek için */
+.react-calendar__month-view__days__day {
+  color: #333; /* Varsayılan günlerin yazı rengi */
+}
+
+/* Cumartesi günleri için stil */
+.saturday {
+  color: #ff0000; /* Cumartesi günleri için yazı rengi */
+}
+
+/* Pazar günleri için stil */
+.sunday {
+  color: #ff0000; /* Pazar günleri için yazı rengi */
+}
+
+/* Formun arka planını ve düzenini tanımla */
+.form-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h2 {
+  margin-top: 0;
+}
+
+.form-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-container label {
+  margin-bottom: 10px;
+}
+
+.form-container button {
+  margin-top: 10px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.form-container button[type="submit"] {
+  background: #007bff;
+  color: #fff;
+}
+
+.form-container button[type="button"] {
+  background: #f0f0f0;
+  color: #333;
+}
+
+/* Ay ve yıl başlıklarının renklerini ayarlama */
+.react-calendar__navigation__label {
+  color: #333; /* Ay ve yıl başlıklarının yazı rengi */
+  font-weight: bold;
+}
+
+/* Önceki ve sonraki ay oklarının renklerini ayarlama */
+.react-calendar__navigation__arrow {
+  color: #007bff; /* Okların rengi */
+  font-size: 1.2rem; /* Okların boyutu */
+}
+
+/* Okların üzerine gelindiğinde renk değişikliği */
+.react-calendar__navigation__arrow:hover {
+  color: #0056b3; /* Hover durumunda okların rengi */
+}

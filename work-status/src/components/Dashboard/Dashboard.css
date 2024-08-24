@@ -20,21 +20,21 @@
 }
 
 .sidebar {
-  background-color: #3a6073; /* Yan menünün arka plan rengi */
-  color: #fff; /* Yazı rengi */
-  width: 150px; /* Yan menünün yeni genişliği */
+  background-color: #3a6073;
+  color: #fff;
+  width: 150px;
   padding: 2rem;
-  height: calc(100vh - 60px); /* Ekran yüksekliği - header yüksekliği */
-  position: fixed; /* Sabit konumda */
-  top: 60px; /* Header'ın hemen altında başlar */
+  height: calc(100vh - 60px);
+  position: fixed;
+  top: 60px;
   left: 0;
   display: flex;
   flex-direction: column;
-  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1); /* Hafif gölge efekti */
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
 }
 
 .main-content-container {
-  margin-left: 200px; /* Yan menünün genişliği ile uyumlu */
+  margin-left: 200px;
   margin-top: 60px;
   display: flex;
   flex-direction: column;
@@ -45,10 +45,35 @@
   padding: 2rem;
   background: #fff;
   flex: 1;
+  display: flex;
+  justify-content: space-between; /* PieChart ve Calendar'ı yan yana hizalar */
+  gap: 1rem;
 }
 
-.dashboard-sections {
+.pie-chart-container {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+  justify-content: flex-start; /* PieChart'ı sola hizalar */
+  padding-left: 2rem; /* İsteğe bağlı olarak sola boşluk ekler */
+}
+
+.calendar-container {
+  display: flex;
+  justify-content: flex-end; /* Calendar'ı sağa hizalar */
+  max-width: 300px; /* Calendar'ın genişliğini sınırlandırır */
+  max-height: 300px; /* Calendar'ın yüksekliğini sınırlandırır */
+  overflow: hidden; /* İçeriğin taşmasını önler */
+}
+
+/* Responsive tasarım için medya sorguları */
+@media (max-width: 768px) {
+  .main-content {
+    flex-direction: column;
+    align-items: center; /* İçerikleri ortalar */
+  }
+
+  .pie-chart-container,
+  .calendar-container {
+    max-width: 100%; /* Küçük ekranlarda genişlik sınırını kaldırır */
+    justify-content: center; /* Küçük ekranlarda içerikleri ortalar */
+  }
 }

@@ -12,7 +12,7 @@ import TimeLogsList from "./TimeLogsList";
 import ReportsList from "./ReportsList";
 import "./Dashboard.css";
 import PieChart from "./PieChart.jsx";
-import App from "./App.jsx";
+import Calendar from "./Calendar.jsx";
 
 function Dashboard() {
   const [view, setView] = useState("default");
@@ -38,10 +38,14 @@ function Dashboard() {
       default:
         return (
           <>
-            <PieChart />
-            <TaskCards />
-            <Charts />
-            <RecentActivities />
+            <div className="main-content">
+              <div className="pie-chart-container">
+                <PieChart />
+              </div>
+              <div className="calendar-container">
+                <Calendar />
+              </div>
+            </div>
           </>
         );
     }
