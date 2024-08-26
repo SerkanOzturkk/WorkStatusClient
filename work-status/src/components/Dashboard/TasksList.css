@@ -168,3 +168,29 @@ h2 {
   border-radius: 4px;
   font-size: 1rem;
 }
+
+/* Status renkleri */
+.status-on-progress {
+  color: #1e90ff; /* Blue */
+  font-weight: bold;
+}
+
+.status-rejected {
+  color: #cc0000; /* Tomato */
+  font-weight: bold;
+}
+
+.status-approved {
+  color: #32cd32; /* Lime Green */
+  font-weight: bold;
+}
+
+.status-suspended {
+  color: #ff4500; /* Orange Red */
+  font-weight: bold;
+}
+
+.status-waiting {
+  color: #ffd700; /* Gold */
+  font-weight: bold;
+}

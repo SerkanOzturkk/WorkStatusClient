@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getUserNameFromToken } from "./Auth";
+import { getUserNameAndIdFromToken } from "./Auth";
 import "./Header.css";
 
 function Header({ onWorkStatusClick }) {
@@ -10,7 +10,7 @@ function Header({ onWorkStatusClick }) {
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
-    const name = getUserNameFromToken(token);
+    const { name } = getUserNameAndIdFromToken(token);
     setUserName(name);
   }, []);
 

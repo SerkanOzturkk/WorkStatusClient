@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 export default function TaskStatusPieChart() {
   const [taskData, setTaskData] = useState([]);
+  const [statusCounts, setStatusCounts] = useState({});
 
   useEffect(() => {
     const fetchTaskData = async () => {
@@ -17,19 +18,21 @@ export default function TaskStatusPieChart() {
         const tasks = result.data;
 
         // Status'lara göre gruplama yap
-        const statusCounts = tasks.reduce((acc, task) => {
-          acc[task.status] = (acc[task.status] || 0) + 1;
+        const counts = tasks.reduce((acc, task) => {
+          const statusName = task.statusName; // Status adı al
+          acc[statusName] = (acc[statusName] || 0) + 1;
           return acc;
         }, {});
 
         // PieChart için uygun formata dönüştürme
-        const pieData = Object.keys(statusCounts).map((status) => ({
+        const pieData = Object.keys(counts).map((status) => ({
           id: status,
-          value: statusCounts[status],
+          value: counts[status],
           label: status,
         }));
 
         setTaskData(pieData);
+        setStatusCounts(counts);
       } catch (error) {
         console.error("Veri yüklenirken hata oluştu:", error);
       }
@@ -39,14 +42,36 @@ export default function TaskStatusPieChart() {
   }, []);
 
   return (
-    <PieChart
-      series={[
-        {
-          data: taskData,
-        },
-      ]}
-      width={400}
-      height={200}
-    />
+    <div style={{ textAlign: "center", paddingLeft: "40px" }}>
+      <h2 style={{ margin: "0", paddingBottom: "16px", paddingRight: "64px" }}>
+        Task Status
+      </h2>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <PieChart
+          series={[
+            {
+              data: taskData,
+            },
+          ]}
+          width={400}
+          height={200}
+        />
+      </div>
+      <div
+        style={{
+          marginTop: "20px",
+          fontSize: "16px",
+          display: "flex",
+          justifyContent: "center",
+          gap: "20px",
+        }}
+      >
+        {Object.keys(statusCounts).map((status) => (
+          <p key={status}>
+            <strong>{status}:</strong> {statusCounts[status]}
+          </p>
+        ))}
+      </div>
+    </div>
   );
 }
